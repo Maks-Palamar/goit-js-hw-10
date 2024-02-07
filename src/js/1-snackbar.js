@@ -40,7 +40,7 @@ promiseForm.addEventListener('submit', event => {
         .catch(value => {
             iziToast.show({
                 message: `❌ Rejected promise in ${delay}ms`,
-                messageColor: '#FF0000',
+                messageColor: '#000000',
                 position: 'bottomRight',
             })
             console.log(delay);
