@@ -12,6 +12,7 @@ const daysSelect = document.querySelector('.value[data-days]');
 const hoursSelect = document.querySelector('.value[data-hours]');
 const minutesSelect = document.querySelector('.value[data-minutes]');
 const secondsSelect = document.querySelector('.value[data-seconds]');
+const dateInp = document.getElementById('datetime-picker');
 
 let userSelectedDate;
 let actualDate = Date.now();
@@ -28,10 +29,11 @@ const options = {
       console.log(selectedDates[0]);
       userSelectedDate = selectedDates[0];
       if (userSelectedDate <= actualDate) {
+          startBtn.disabled =true;
           iziToast.show({
               message: 'Please choose a date in the future',
               messageColor: '#FF0000',
-              position: 'bottomRight',
+              position: 'topRight',
           })
           return;
       } else {
@@ -50,8 +52,15 @@ startBtn.addEventListener('click', event => {
         rightTimeShowcase(convertMs(timer));
         stop(timer);
         console.log(timer);
+        if (timer < 1000) {
+        console.log('end');
+        dateInp.disabled = false;
+        }
     }, 1000)
     startBtn.disabled = true;
+    dateInp.disabled = true;
+
+    
 });
 
 function convertMs(ms) {

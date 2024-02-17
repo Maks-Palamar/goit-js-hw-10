@@ -16,6 +16,19 @@ function setDelay(event) {
 promiseForm.addEventListener('submit', event => {
     event.preventDefault();
 
+    const delay = parseInt(promiseForm.elements.delay.value, 10);
+
+    if (isNaN(delay) || delay < 0) {
+        console.error('Invalid delay value');
+        return iziToast.show({
+                message: `❌ Invalid delay value`,
+                messageColor: '#000000',
+                position: 'topRight',
+            })
+    }
+
+    const stateValue = promiseForm.elements.state.value;
+
     function makePromise(delay, value) {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
@@ -28,12 +41,12 @@ promiseForm.addEventListener('submit', event => {
         })
     }
 
-    makePromise(delay, promiseForm.elements.state.value)
+    makePromise(delay, stateValue)
         .then(value => {
             iziToast.show({
                 message: `✅ Fulfilled promise in ${delay}ms`,
-                messageColor: '#FFF',
-                position: 'bottomRight',
+                messageColor: '#000000',
+                position: 'topRight',
             })
             console.log(delay);
         })
@@ -41,7 +54,7 @@ promiseForm.addEventListener('submit', event => {
             iziToast.show({
                 message: `❌ Rejected promise in ${delay}ms`,
                 messageColor: '#000000',
-                position: 'bottomRight',
+                position: 'topRight',
             })
             console.log(delay);
         });
